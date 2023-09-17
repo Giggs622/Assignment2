@@ -21,9 +21,11 @@ public class App extends Application {
 
    
     private static Scene sceneMain;
-     private static Scene sceneAddMember;
-     private static Scene sceneSearch;
-     private static Stage stage;
+    private static Scene sceneAddMember;
+    private static Scene sceneSearch;
+    private static Scene sceneDisplayAll;
+    private static Scene sceneTotalFee;
+    private static Stage stage;
     private static DataHandler data;    
 
     @Override
@@ -32,16 +34,20 @@ public class App extends Application {
         data = new DataHandler("members.txt");  
         
         //Creates the Main and AddNumber scene 
-        Parent rootMain = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Parent rootMain = FXMLLoader.load(getClass().getResource("welcomePage.fxml"));
         Parent rootAddMem = FXMLLoader.load(getClass().getResource("memberRecord.fxml"));
         Parent rootSearch = FXMLLoader.load(getClass().getResource("memberSearch.fxml"));
+        Parent rootDisplayAll = FXMLLoader.load(getClass().getResource("displayAll.fxml"));
+        Parent rootTotalFee = FXMLLoader.load(getClass().getResource("displayTotal.fxml"));
         
         sceneMain = new Scene(rootMain);
         sceneAddMember = new Scene(rootAddMem);
         sceneSearch = new Scene(rootSearch);
+        sceneDisplayAll = new Scene(rootDisplayAll);
+        sceneTotalFee = new Scene(rootTotalFee);
         
         this.stage = stage;
-        //set the current scene to the main scenen
+        //set the current scene to the main scene
         
         //scene = new Scene(loadFXML("mainMenu"), 640, 480);
         stage.setScene(sceneMain);

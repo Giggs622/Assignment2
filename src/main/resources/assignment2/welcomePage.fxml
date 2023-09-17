@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -9,7 +10,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <left>
@@ -20,7 +20,7 @@
                   <Insets left="5.0" right="5.0" top="5.0" />
                </padding>
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="Arial Bold" size="14.0" />
                </font>
             </Label>
             <Label prefHeight="61.0" prefWidth="103.0" style="-fx-background-color: #003057;" text="MEMBERSHIP REGISTRATION SYSTEM" textFill="WHITE" wrapText="true">
@@ -40,25 +40,46 @@
                      <graphic>
                         <ImageView fitHeight="19.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                            <image>
-                              <Image url="@../../../../../../../Downloads/home_FILL0_wght100_GRAD0_opsz24.png" />
+                              <Image url="@Icons/home_FILL0_wght100_GRAD0_opsz24.png" />
                            </image>
                            <viewport>
                               <Rectangle2D />
                            </viewport>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="11.0" layoutY="30.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #F6F6F4;" text="Enter Details">
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="68.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #F6F6F4;" text="Enter Details">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <graphic>
                         <ImageView fitHeight="19.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                            <image>
-                              <Image url="@../../../../../../../Downloads/edit_note_FILL0_wght100_GRAD0_opsz24.png" />
+                              <Image url="@Icons/edit_note_FILL0_wght100_GRAD0_opsz24.png" />
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="11.0" layoutY="30.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #F6F6F4;" text="Search">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
+                           <image>
+                              <Image url="@Icons/search_FILL0_wght100_GRAD0_opsz24.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="11.0" layoutY="56.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #F6F6F4;" text="View All">
                      <opaqueInsets>
@@ -67,22 +88,28 @@
                      <graphic>
                         <ImageView fitHeight="19.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                            <image>
-                              <Image url="@../../../../../../../Downloads/view_list_FILL0_wght100_GRAD0_opsz24.png" />
+                              <Image url="@Icons/view_list_FILL0_wght100_GRAD0_opsz24.png" />
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="11.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #F6F6F4;" text="View Total">
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="11.0" layoutY="83.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #F6F6F4;" text="Total Fees">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <graphic>
                         <ImageView fitHeight="19.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                            <image>
-                              <Image url="@../../../../../../../Downloads/payments_FILL0_wght100_GRAD0_opsz24.png" />
+                              <Image url="@Icons/payments_FILL0_wght100_GRAD0_opsz24.png" />
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="11.0" layoutY="109.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #F6F6F4;" text="Exit">
                      <opaqueInsets>
@@ -91,10 +118,13 @@
                      <graphic>
                         <ImageView fitHeight="19.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0">
                            <image>
-                              <Image url="@../../../../../../../Downloads/logout_FILL0_wght100_GRAD0_opsz24.png" />
+                              <Image url="@Icons/logout_FILL0_wght100_GRAD0_opsz24.png" />
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <padding>
@@ -110,4 +140,11 @@
          </padding>
       </VBox>
    </left>
+   <center>
+      <ImageView fitHeight="480.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@Images/Untitled%20Diagram.png" />
+         </image>
+      </ImageView>
+   </center>
 </BorderPane>
