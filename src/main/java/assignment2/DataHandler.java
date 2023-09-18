@@ -141,7 +141,7 @@ public class DataHandler
     {
         float totalFee = 0.0f;
         // Get total registration fee
-        for(Member curMember : memberList)
+        for (Member curMember : memberList)
         {
             totalFee += curMember.getRegisterFee();
         }

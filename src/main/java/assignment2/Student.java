@@ -2,21 +2,21 @@
 // File: Student.java
 // Date: 17 Sept 2023
 // Purpose: COIT11134 Assignment 2
-
 package assignment2;
 
 public class Student extends Member
 {
+
     // Instance variables
     private float studentDiscount;
-    
+
     // Constructor
     public Student(int memberId, String memberName, String uniName, String memberEmail, String memberPhone, float registerFee, float studentDiscount)
     {
         super(memberId, memberName, uniName, memberEmail, memberPhone, registerFee);
         this.studentDiscount = studentDiscount;
     }
-    
+
     // Student discount getter and setter
     public float getStudentDiscount()
     {
@@ -27,7 +27,7 @@ public class Student extends Member
     {
         this.studentDiscount = studentDiscount;
     }
-    
+
     // Register Fee Getter for Student class
     @Override
     public float getRegisterFee()

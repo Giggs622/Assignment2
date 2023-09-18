@@ -2,11 +2,11 @@
 // File: Member.java
 // Date: 17 Sept 2023
 // Purpose: COIT11134 Assignment 2
-
 package assignment2;
 
-public class Member 
+public class Member
 {
+
     // Instance Variables
     private int memberId;           // Member ID
     private String memberName;      // Full name
@@ -14,7 +14,7 @@ public class Member
     private String memberEmail;     // Email
     private String memberPhone;        // Phone Number
     private float registerFee;      // Registration Fee
-    
+
     // Constructor
     public Member(int memberId, String memberName, String uniName, String memberEmail, String memberPhone, float registerFee)
     {
@@ -25,7 +25,6 @@ public class Member
         this.memberPhone = memberPhone;
         this.registerFee = registerFee;
     }
-    
 
     // Member ID Getter and Setter
     public int getMemberId()
@@ -92,7 +91,7 @@ public class Member
     {
         this.registerFee = registerFee;
     }
-    
+
     // toString method for Member class
     @Override
     public String toString()
