@@ -2,7 +2,6 @@
 // File: DataHandler.java
 // Date: 17 Sept 2023
 // Purpose: COIT11134 Assignment 2
-
 package assignment2;
 
 import java.io.FileNotFoundException;
@@ -12,132 +11,142 @@ import java.util.Formatter;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class DataHandler 
+public class DataHandler
 {
+
     private String fileName;
     private ArrayList<Member> memberList;
 
-    public DataHandler(String fileName) throws FileNotFoundException {
+    public DataHandler(String fileName) throws FileNotFoundException
+    {
         this.fileName = fileName;
         //initialise memberList ArrayList
         this.memberList = new ArrayList<Member>();
         //reading all saved members
         readDataFile();
     }
+
     //Private method for reading all saved members from the text file 
     //and uploading to the memberList ArrayList
     //Not accessible to the external classes
     private void readDataFile() throws FileNotFoundException
     {
-	try {
+        try
+        {
             Scanner in = new Scanner(new FileReader(fileName)); //open file
-            String myEntry = "";  //hold whole line text
-                     
+            String myEntry = "";  //hold whole line text       
             int memberID = 0;
-            String name = "";
-            String university ="";
-            String email ="";
-            String phone ="";
-            float fee = -1;
-            float discount = -1;
-            String topic ="";
+            String memberName = "";
+            String uniName = "";
+            String memberEmail = "";
+            String memberPhone = "";
+            float registerFee = -1;
+            float discount = Values.MEMBER_DISCOUNT;
+            String speechTopic = null;
 
-            while (in.hasNextLine()) {
+            while (in.hasNextLine())
+            {
                 myEntry = in.nextLine();
                 StringTokenizer st = new StringTokenizer(myEntry, ",");
 
-                while (st.hasMoreTokens()) {                    
+                while (st.hasMoreTokens())
+                {
                     memberID = Integer.parseInt(st.nextToken());
-                    name = st.nextToken();
-                    university = st.nextToken();
-                    email = st.nextToken();                                     
-                    phone = st.nextToken();
-                    fee = Float.parseFloat(st.nextToken());
+                    memberName = st.nextToken();
+                    uniName = st.nextToken();
+                    memberEmail = st.nextToken();
+                    memberPhone = st.nextToken();
+                    registerFee = Float.parseFloat(st.nextToken());
                     discount = Float.parseFloat(st.nextToken());
-                    topic = st.nextToken();
+                    speechTopic = st.nextToken();
                 }
                 // Add member to the memberList ArrayList
-                if (discount == 0)  //full member
+                if (discount == Values.MEMBER_DISCOUNT)  //full member
                 {
-                  //TODO, create member type
-                  //TODO, add the member to the ArrayList                   
-                 
-                }else if (discount == 100)  // keynote member
-                {               
-                    //TODO, create member type
-                    //TODO, add the member to the ArrayList    
-                
-                }else
+                    // Create member type
+                    Member member = new Member(memberID, memberName, uniName, memberEmail, memberPhone, registerFee);
+                    // Add the member to the ArrayList
+                    addMember(member);
+                }
+                else if (discount == Values.SPEAKER_DISCOUNT)  // keynote member
                 {
-                    //TODO, create member type
-                    //TODO, add the member to the ArrayList  
-                }               
-            
+                    // Create member type
+                    Speaker speaker = new Speaker(memberID, memberName, uniName, memberEmail, memberPhone, registerFee, speechTopic);
+                    // Add the member to the ArrayList
+                    addMember(speaker);
+                }
+                else
+                {
+                    // Create member type
+                    Student student = new Student(memberID, memberName, uniName, memberEmail, memberPhone, registerFee, discount);
+                    // Add the member to the ArrayList
+                    addMember(student);
+                }
             }// end of while loop
 
             in.close();//close file
-        } catch (ArrayIndexOutOfBoundsException ex) {
-              
-        } catch (FileNotFoundException ex) {
-             
         }
-     }//end of the readDataFile method
-    
-    
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
+            //JOptionPane.showMessageDialog(null, "ArrayOutOfBoundsException: " + ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (FileNotFoundException ex)
+        {
+            //JOptionPane.showMessageDialog(null, "FileNotFoundException: " + ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//end of the readDataFile method
+
     //Method for saving all members from the memberList ArrayList to the text file
-   public void saveData()
-   {
+    public void saveData()
+    {
         try
         {
             Formatter out = new Formatter(fileName);    //open file
-       
-            int totalNumbers = memberList.size();
-        
-               
-            for (int i = 0; i < totalNumbers; i++)
+
+            for (Member curMember : memberList)
             {
-                Member curMember = memberList.get(i);
-                
                 out.format("%s\n", curMember.toString());
-            }            
-            
+            }
 
             out.close();//close file
-           } catch(SecurityException ex)  {
-                
-           }  catch(FileNotFoundException ex)   {
-                
-           }
+        }
+        catch (SecurityException ex)
+        {
+            //JOptionPane.showMessageDialog(null,"SecurityException: "+ ex.getMessage(),"Error",JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch (FileNotFoundException ex)
+        {
+            //JOptionPane.showMessageDialog(null, "FileNotFoundException: " + ex.getMessage(), "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
 
-   }//end of the SaveData method 
-    
-  // Method for adding a member to the member ArrayList
+    }//end of the SaveData method 
+
+    // Method for adding a member to the member ArrayList
     public void addMember(Member m)
     {
-        memberList.add(m); 
-    }    
-    
-    
-    
+        memberList.add(m);
+    }
+
     //Method for creating a String containing all member entries
     //The String would be displayed in the text area on the display scene  
     public String getDisplayOutput()
-    {  
-	String allMembers ="";     // to store all members in a single String literal 
-        
+    {
+        String allMembers = "";     // to store all members in a single String literal 
+
         //TODO - get all members' information from the arraylist and add them together to a single string
-                
-        return allMembers+"\n"+"Total number of member entry is: " + "a count value";
-    }       
- 
-    
+        return allMembers + "\n" + "Total number of member entry is: " + "a count value";
+    }
+
     public float getTotalFee()
     {
-       float totalFee = 0.0f;
-       //TODO, calcuate the total fee
-        
-       return totalFee;
+        float totalFee = 0.0f;
+        // Get total registration fee
+        for(Member curMember : memberList)
+        {
+            totalFee += curMember.getRegisterFee();
+        }
+        return totalFee;
     }
-    
+
     //TODO - add more methods here whenever needed. 
 }

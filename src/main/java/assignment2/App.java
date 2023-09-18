@@ -67,6 +67,8 @@ public class App extends Application {
             case 0: stage.setScene(sceneMain); break;
             case 1: stage.setScene(sceneAddMember); break;
             case 2: stage.setScene(sceneSearch); break;
+            case 3: stage.setScene(sceneDisplayAll); break;
+            case 4: stage.setScene(sceneTotalFee); break;
             default:
         } 
     }
