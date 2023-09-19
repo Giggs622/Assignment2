@@ -30,16 +30,16 @@ public class Student extends Member
 
     // Register Fee Getter for Student class
     @Override
-    public float getRegisterFee()
+    public void setRegisterFee(float registerFee)
     {
-        float baseRegisterFee = super.getRegisterFee();
-        return baseRegisterFee - (baseRegisterFee * (this.studentDiscount / 100));
+        float finalRegisterFee = registerFee - (registerFee * (this.studentDiscount / 100));
+        super.setRegisterFee(finalRegisterFee);
     }
 
     // toString method for Student class
     @Override
     public String toString()
     {
-        return String.format("%-12.12s%-20.20s%-20.20s%-20.20s%-14.14s$%-13.2fNA", super.getMemberId(), super.getMemberName(), super.getUniName(), super.getMemberEmail(), super.getMemberPhone(), getRegisterFee());
+        return String.format("%d,%s,%s,%s,%s,%.2f,%.2f, ,", super.getMemberId(), super.getMemberName(), super.getUniName(), super.getMemberEmail(), super.getMemberPhone(), getRegisterFee(),studentDiscount);
     }
 }

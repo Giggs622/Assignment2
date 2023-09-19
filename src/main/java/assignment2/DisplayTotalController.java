@@ -6,7 +6,9 @@ package assignment2;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -15,7 +17,11 @@ import javafx.fxml.Initializable;
  */
 public class DisplayTotalController implements Initializable
 {
-
+    @FXML
+    private Label labelTotal;
+    
+    private DataHandler data;
+    private String feeTotal;
     /**
      * Initializes the controller class.
      */
@@ -23,6 +29,10 @@ public class DisplayTotalController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
+        data = App.getDataHandler();
+        feeTotal = String.format("$%s",Float.toString(data.getTotalFee()));
+        
+        labelTotal.setText(feeTotal);
     }
 
 }

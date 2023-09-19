@@ -30,16 +30,16 @@ public class Speaker extends Member
 
     // Register Fee Getter for Student class
     @Override
-    public float getRegisterFee()
+    public void setRegisterFee(float registerFee)
     {
-        float baseRegisterFee = super.getRegisterFee();
-        return baseRegisterFee - (baseRegisterFee * (Values.SPEAKER_DISCOUNT / 100));
+        float finalRegisterFee = registerFee - (registerFee * (Values.SPEAKER_DISCOUNT / 100));
+        super.setRegisterFee(finalRegisterFee);
     }
 
     // toString method for Speaker class
     @Override
     public String toString()
     {
-        return String.format("%-12.12s%-20.20s%-20.20s%-20.20s%-14.14s$%-13.2f%-20s", super.getMemberId(), super.getMemberName(), super.getUniName(), super.getMemberEmail(), super.getMemberPhone(), getRegisterFee(), this.speechTopic);
+        return String.format("%d,%s,%s,%s,%s,%.2f,%.2f,%s,", super.getMemberId(), super.getMemberName(), super.getUniName(), super.getMemberEmail(), super.getMemberPhone(), getRegisterFee(), Values.SPEAKER_DISCOUNT, this.speechTopic);
     }
 }
