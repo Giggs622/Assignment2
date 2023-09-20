@@ -96,6 +96,9 @@ public class DataHandler
                     }
                 }// end of while loop
 
+                Member lastMember = memberList.get(memberList.size() - 1);
+                lastMemberMessage(lastMember);
+                
                 fileReader.close();//close file
             }
         }
@@ -149,16 +152,6 @@ public class DataHandler
         return memberList;
     }
     
-    //Method for creating a String containing all member entries
-    //The String would be displayed fileReader the text area on the display scene  
-    public String getDisplayOutput()
-    {
-        String allMembers = "";     // to store all members fileReader a single String literal 
-
-        //TODO - get all members' information from the arraylist and add them together to a single string
-        return allMembers + "\n" + "Total number of member entry is: " + "a count value";
-    }
-
     public float getTotalFee()
     {
         float totalFee = 0.0f;
@@ -175,6 +168,34 @@ public class DataHandler
         Alert alert = new Alert(Alert.AlertType.ERROR, "No member records have been stored");
         alert.showAndWait();
     }
+    
+    private void lastMemberMessage(Member m)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, String.format("Last member stored was: %d %s", m.getMemberId(), m.getMemberName()));
+        alert.showAndWait();
+    }
 
     //TODO - add more methods here whenever needed. 
+    
+    
+    
+    public int findMemberRecord(int memberID)
+    {
+        // Declare variables
+        int index = -1;                 // Store array index number if found or pass number < 0
+        int arrayCounter = 0;           // Count to which array index is found in for loop
+        
+        // Check every element in ListArray for matching member ID
+        for (Member e : memberList)
+        {
+            if (memberID == e.getMemberId())
+            {
+                index = arrayCounter;
+            }
+            arrayCounter++;
+        }
+        
+        // Return the index number
+        return index;
+    }
 }

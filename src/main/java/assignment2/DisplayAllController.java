@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 /**
  * FXML Controller class
  *
@@ -20,7 +21,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class DisplayAllController implements Initializable
 {
-
 
     @FXML
     private TableView<Member> tableView;
@@ -36,13 +36,14 @@ public class DisplayAllController implements Initializable
     private TableColumn<Member, String> colMemberPhone;
     @FXML
     private TableColumn<Member, Float> colMemberFee;
-     @FXML
+    @FXML
     private TableColumn<Member, Float> colMemberDiscount;
     @FXML
     private TableColumn<Member, String> colMemberTopic;
-    
+
     private ArrayList<Member> memberList;
     private DataHandler data;
+
     /**
      * Initializes the controller class.
      */
@@ -50,6 +51,7 @@ public class DisplayAllController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
+
         colMemberId.setCellValueFactory(new PropertyValueFactory<Member, Integer>("MemberId"));
         colMemberName.setCellValueFactory(new PropertyValueFactory<Member, String>("MemberName"));
         colMemberUni.setCellValueFactory(new PropertyValueFactory<Member, String>("UniName"));
@@ -58,15 +60,14 @@ public class DisplayAllController implements Initializable
         colMemberFee.setCellValueFactory(new PropertyValueFactory<Member, Float>("RegisterFee"));
         colMemberDiscount.setCellValueFactory(new PropertyValueFactory<Member, Float>("StudentDiscount"));
         colMemberTopic.setCellValueFactory(new PropertyValueFactory<Member, String>("SpeechTopic"));
-        
+
         data = App.getDataHandler();
         memberList = data.getArrayList();
-        
+
         for (Member m : memberList)
         {
             tableView.getItems().add(m);
         }
-    }    
-    
-    
+
+    }
 }

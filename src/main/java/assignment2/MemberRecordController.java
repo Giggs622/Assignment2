@@ -51,31 +51,49 @@ public class MemberRecordController implements Initializable
     {
         if (checkIfEmptyMember())
         {
-            errorMessage();
+            errorMessageBlank();
         }
         else
         {
+            int index;
+            int memberId;
+            float registerFee;
+            String[] array = createMemberArray();
+            
             try
             {
-                String[] array = createMemberArray();
-                DataHandler data;
-                int memberId = Integer.parseInt(array[0]);
-                float registerFee = Float.parseFloat(array[5]);
-
-                // Add search for member ID
-                
-                Member member = new Member(memberId, array[1], array[2], array[3], array[4], registerFee);
-                data = App.getDataHandler();
-                data.addMember(member);
-                
-                confirmMessage();
+                memberId = Integer.parseInt(array[0]);
+                registerFee = Float.parseFloat(array[5]);
             }
             catch (NumberFormatException ex)
             {
                 errorMessageInteger();
+                return;
             }
-        }
+            
+            if (registerFee < 0F)
+            {
+                errorMessageRegisterLow();
+                return;
+            }
+            
+            DataHandler data = App.getDataHandler();
+            index = data.findMemberRecord(memberId);
 
+            // If member ID found, print member information
+            if (index > -1)
+            {
+                errorMessageMemberExists();
+            }
+            else
+            // Display "Member not found" message
+            {
+                Member member = new Member(memberId, array[1], array[2], array[3], array[4], registerFee);
+                data.addMember(member);
+                
+                confirmMessage();
+            } 
+        }
     }
 
     @FXML
@@ -83,31 +101,57 @@ public class MemberRecordController implements Initializable
     {
         if (checkIfEmptyMember() || checkIfEmpty(textStudentDiscount.getText()))
         {
-            errorMessage();
+            errorMessageBlank();
         }
         else
         {
+            int memberId;
+            float registerFee;
+            float studentDiscount;
+            String[] array = createMemberArray();
+            
             try
             {
-                String[] array = createMemberArray();
-                DataHandler data;
-                int memberId = Integer.parseInt(array[0]);
-                float registerFee = Float.parseFloat(array[5]);
-                float studentDiscount = Float.parseFloat(textStudentDiscount.getText());
-
-                // Add search for member ID
-                Student student = new Student(memberId, array[1], array[2], array[3], array[4], registerFee, studentDiscount);
-                student.setRegisterFee(registerFee);
-                
-                data = App.getDataHandler();
-                data.addMember(student);
-                
-                confirmMessage();
+                memberId = Integer.parseInt(array[0]);
+                registerFee = Float.parseFloat(array[5]);
+                studentDiscount = Float.parseFloat(textStudentDiscount.getText());
             }
             catch (NumberFormatException ex)
             {
                 errorMessageInteger();
+                return;
             }
+            
+            if (registerFee < 0F)
+            {
+                errorMessageRegisterLow();
+                return;
+            }
+            
+            if (studentDiscount < Values.STUDENT_DISCOUNT_MIN || studentDiscount > Values.STUDENT_DISCOUNT_MAX)
+            {
+                errorMessageDiscountRange();
+                return;
+            }
+            
+            DataHandler data = App.getDataHandler();
+            int index = data.findMemberRecord(memberId);
+
+            // If member ID found, print member information
+            if (index > -1)
+            {
+                errorMessageMemberExists();
+            }
+            else
+            // Display "Member not found" message
+            {
+                Student student = new Student(memberId, array[1], array[2], array[3], array[4], registerFee, studentDiscount);
+                student.setRegisterFee(registerFee);
+                
+                data.addMember(student);
+                
+                confirmMessage();
+            } 
         }
     }
 
@@ -116,34 +160,68 @@ public class MemberRecordController implements Initializable
     {
         if (checkIfEmptyMember() || checkIfEmpty(textSpeakerTopic.getText()))
         {
-            errorMessage();
+            errorMessageBlank();
         }
         else
         {
+            int memberId;
+            float registerFee;
+            String speakerTopic;
+            String[] array = createMemberArray();
+            
             try
             {
-                String[] array = createMemberArray();
-                DataHandler data;
-                int memberId = Integer.parseInt(array[0]);
-                float registerFee = Float.parseFloat(array[5]);
-                String speakerTopic = textSpeakerTopic.getText();
-
-                // Add search for member ID
-                Speaker speaker = new Speaker(memberId, array[1], array[2], array[3], array[4], registerFee, speakerTopic);
-                speaker.setRegisterFee(registerFee);
-                
-                data = App.getDataHandler();
-                data.addMember(speaker);
-                
-                confirmMessage();
+                memberId = Integer.parseInt(array[0]);
+                registerFee = Float.parseFloat(array[5]);
             }
             catch (NumberFormatException ex)
             {
                 errorMessageInteger();
+                return;
             }
+            
+            if (registerFee < 0F)
+            {
+                errorMessageRegisterLow();
+                return;
+            }
+            
+            speakerTopic = textSpeakerTopic.getText();
+            DataHandler data = App.getDataHandler();
+            int index = data.findMemberRecord(memberId);
+
+            // If member ID found, print member information
+            if (index > -1)
+            {
+                errorMessageMemberExists();
+            }
+            else
+            // Display "Member not found" message
+            {
+                Speaker speaker = new Speaker(memberId, array[1], array[2], array[3], array[4], registerFee, speakerTopic);
+                speaker.setRegisterFee(registerFee);
+                
+                data.addMember(speaker);
+                
+                confirmMessage();
+            } 
         }
     }
 
+     private String[] createMemberArray()
+    {
+        String a = textMemberId.getText();
+        String b = textMemberName.getText();
+        String c = textMemberUni.getText();
+        String d = textMemberEmail.getText();
+        String e = textMemberPhone.getText();
+        String f = textMemberFee.getText();
+
+        String[] array = {a, b, c, d, e, f};
+
+        return array;
+    }
+    
     private boolean checkIfEmpty(String s)
     {
         boolean check = false;
@@ -156,23 +234,6 @@ public class MemberRecordController implements Initializable
         return check;
     }
 
-    private String[] createMemberArray()
-    {
-        String a = textMemberId.getText();
-        String b = textMemberName.getText();
-        String c = textMemberUni.getText();
-        String d = textMemberEmail.getText();
-        String e = textMemberPhone.getText();
-        String f = textMemberFee.getText();
-
-        String[] array =
-        {
-            a, b, c, d, e, f
-        };
-
-        return array;
-    }
-
     private boolean checkIfEmptyMember()
     {
         boolean check = false;
@@ -181,13 +242,16 @@ public class MemberRecordController implements Initializable
 
         for (String s : array)
         {
-            check = checkIfEmpty(s);
+            if(checkIfEmpty(s))
+            {
+                check = true;
+            }
         }
 
         return check;
     }
 
-    private void errorMessage()
+    private void errorMessageBlank()
     {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all text fields");
         alert.showAndWait();
@@ -195,7 +259,25 @@ public class MemberRecordController implements Initializable
 
     private void errorMessageInteger()
     {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Member ID must be an integer");
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Member ID, Registration Fee & Discount must be an number");
+        alert.showAndWait();
+    }
+    
+    private void errorMessageRegisterLow()
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Registration Fee must be a positive number");
+        alert.showAndWait();
+    }
+    
+     private void errorMessageDiscountRange()
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR, String.format("Discount must be between %.1f%% and %.1f%%", Values.STUDENT_DISCOUNT_MIN, Values.STUDENT_DISCOUNT_MAX));
+        alert.showAndWait();
+    }
+    
+    private void errorMessageMemberExists()
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Member ID already exists. Please enter another Member ID");
         alert.showAndWait();
     }
     

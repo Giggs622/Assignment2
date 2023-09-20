@@ -72,7 +72,7 @@ public class MainMenuController implements Initializable
     @FXML
     private void searchAction(ActionEvent event) throws IOException
     {
-        App.normalStageWidth();
+        App.extendStageSize();
         memberSearch = loadScene("memberSearch.fxml");
         borderPane.setCenter(memberSearch);
     }
