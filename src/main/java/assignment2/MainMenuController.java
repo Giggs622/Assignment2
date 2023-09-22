@@ -1,7 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+// Programmer: Matt Jones S0201735
+// File: MainMenuController.java
+// Date: 17 Sept 2023
+// Purpose: COIT11134 Assignment 2
+
 package assignment2;
 
 import java.io.IOException;
@@ -19,15 +20,14 @@ import javafx.scene.layout.BorderPane;
 
 /**
  * FXML Controller class
- *
- * @author Matt6
  */
 public class MainMenuController implements Initializable
 {
-
+    // Declare variables for elements in scene
     @FXML
     private BorderPane borderPane;
 
+    // Declare parent objects to hold each scene for the application
     private Parent welcomePage;
     private Parent memberRecord;
     private Parent memberSearch;
@@ -42,7 +42,7 @@ public class MainMenuController implements Initializable
     {
         try
         {
-            // TODO
+            // Load the welcome page scene when the main menu is initally called
             welcomePage = loadScene("welcomePage.fxml");
             borderPane.setCenter(welcomePage);
         }
@@ -53,6 +53,7 @@ public class MainMenuController implements Initializable
 
     }
 
+    // Method for Home button action to set scene to home page
     @FXML
     private void homeAction(ActionEvent event) throws IOException
     {
@@ -61,6 +62,7 @@ public class MainMenuController implements Initializable
         borderPane.setCenter(welcomePage);
     }
 
+    // Method for Add Member button action to set scene the record member page
     @FXML
     private void addMemberAction(ActionEvent event) throws IOException
     {
@@ -69,6 +71,7 @@ public class MainMenuController implements Initializable
         borderPane.setCenter(memberRecord);
     }
 
+    // Method for Search button action to set scene to the search page
     @FXML
     private void searchAction(ActionEvent event) throws IOException
     {
@@ -77,6 +80,7 @@ public class MainMenuController implements Initializable
         borderPane.setCenter(memberSearch);
     }
 
+    // Method for View All button action to set scene to the view all page
     @FXML
     private void viewAllMemberAction(ActionEvent event) throws IOException
     {
@@ -85,6 +89,7 @@ public class MainMenuController implements Initializable
         borderPane.setCenter(displayAll);
     }
 
+    // Method for Total Fee button action to set scene to the total fee page
     @FXML
     private void viewTotalFeeAction(ActionEvent event) throws IOException
     {
@@ -93,16 +98,19 @@ public class MainMenuController implements Initializable
         borderPane.setCenter(displayTotal);
     }
 
+    // Method for the Exit button action to save member records to file and
+    // exit the application
     @FXML
     private void exitAction(ActionEvent event)
     {
-        System.out.println("You clicked on Exit!");
-
+        // Call the data handler save data method
         App.getDataHandler().saveData();
 
+        // Display a confirmation message before exiting application
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to close?");
         alert.showAndWait().ifPresent(response ->
         {
+            // Exit application if user selects OK
             if (response == ButtonType.OK)
             {
                 Platform.exit();
@@ -110,9 +118,9 @@ public class MainMenuController implements Initializable
         });
     }
 
+    // Method to load a JavaFX scene
     private Parent loadScene(String sc) throws IOException
     {
         return FXMLLoader.load(getClass().getResource(sc));
     }
-
 }

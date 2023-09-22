@@ -36,7 +36,7 @@ public class Speaker extends Member
         super.setRegisterFee(finalRegisterFee);
     }
 
-    // toString method for Speaker class
+    // toString method for Speaker class in format for writing to file
     @Override
     public String toString()
     {

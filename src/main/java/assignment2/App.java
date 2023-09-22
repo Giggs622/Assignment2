@@ -2,6 +2,7 @@
 // File: App.java
 // Date: 17 Sept 2023
 // Purpose: COIT11134 Assignment 2
+
 package assignment2;
 
 import javafx.application.Application;
@@ -17,10 +18,10 @@ import static javafx.application.Application.launch;
  */
 public class App extends Application
 {
-
-    private static Scene sceneMain;
-    private static Stage stage;
-    private static DataHandler data;
+    // Declare initial variables
+    private static Scene sceneMain; //Holds main scene
+    private static Stage stage; //Holds stage
+    private static DataHandler data; //Creates data handler object
 
     @Override
     public void start(Stage stage) throws IOException
@@ -28,19 +29,20 @@ public class App extends Application
         //Instatiates the DataHandler object
         data = new DataHandler("members.txt");
 
-        //Creates the Main and AddNumber scene 
+        // Sets JavaFX parent for main menu
         Parent rootMain = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-
+        // Creates the main menu scene 
         sceneMain = new Scene(rootMain);
 
+        // Sets the JavaFX stage
         this.stage = stage;
 
-        //scene = new Scene(loadFXML("mainMenu"), 640, 480);
+        // Sets the main menu scene to the stage
         stage.setScene(sceneMain);
         stage.show();
     }
 
-    //Method for passing a reference to the data object
+    //Method for passing a reference to the data object in other classes
     public static DataHandler getDataHandler()
     {
         return data;
@@ -64,6 +66,7 @@ public class App extends Application
         stage.close();
     }
 
+    // Main method to launch application
     public static void main(String[] args)
     {
         launch();

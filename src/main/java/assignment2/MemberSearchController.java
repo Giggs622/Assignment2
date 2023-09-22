@@ -1,7 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+// Programmer: Matt Jones S0201735
+// File: MemberSearchController.java
+// Date: 17 Sept 2023
+// Purpose: COIT11134 Assignment 2
+
 package assignment2;
 
 import java.net.URL;
@@ -18,12 +19,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
- *
- * @author Matt6
  */
 public class MemberSearchController implements Initializable
 {
-
+    // Declare variables for elements in scene
     @FXML
     private TextField textMemberIdSearch;
     @FXML
@@ -45,6 +44,7 @@ public class MemberSearchController implements Initializable
     @FXML
     private TableColumn<Member, String> colMemberTopic;
 
+    // Declare objects
     private ArrayList<Member> memberList;
     private DataHandler data;
 
@@ -54,7 +54,7 @@ public class MemberSearchController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        // Set up columns in table view with Strings used for get methods
         colMemberId.setCellValueFactory(new PropertyValueFactory<Member, Integer>("MemberId"));
         colMemberName.setCellValueFactory(new PropertyValueFactory<Member, String>("MemberName"));
         colMemberUni.setCellValueFactory(new PropertyValueFactory<Member, String>("UniName"));
@@ -65,35 +65,46 @@ public class MemberSearchController implements Initializable
         colMemberTopic.setCellValueFactory(new PropertyValueFactory<Member, String>("SpeechTopic"));
     }
 
+    // Method for Search button action to find member ID stored in database
     @FXML
     private void btnSearchAction(ActionEvent event)
     {
-        int memberId;
-        int index;
+        // Delcare variables
+        int memberId; //Holds the member ID number
+        int index; //Holds the index number from member search
 
+        // Check if each text field for member ID is empty and show error message
+        // if it is
         if (checkIfEmpty(textMemberIdSearch.getText()))
         {
             errorMessageBlank();
         }
         else
         {
+            // Parse member ID and registration fee from String text field and
+            // show an error method if a number is not entered
             try
             {
                 memberId = Integer.parseInt(textMemberIdSearch.getText());
             }
-            catch (NumberFormatException ex)
+            catch (NumberFormatException ex) // Display an error message and exit method
             {
                 errorMessageInteger();
                 return;
             }
+            
+            // Create object reference to data handler
             data = App.getDataHandler();
+            // Get memberList ArrayList from data handler
             memberList = data.getArrayList();
 
+            // Check if member ID already exists
             index = data.findMemberRecord(memberId);
 
-            // If member ID found, print member information
+            // If member ID found, show error message
             if (index > -1)
             {
+                // Get the member details from the memberList
                 Member m = memberList.get(index);
                 // Display member in table
                 tableView.getItems().add(m);
@@ -106,6 +117,7 @@ public class MemberSearchController implements Initializable
         }
     }
 
+    // Method to check if a String object is empty or blank
     private boolean checkIfEmpty(String s)
     {
         boolean check = false;
@@ -118,22 +130,24 @@ public class MemberSearchController implements Initializable
         return check;
     }
 
+    // Method to show an error message if text field is blank
     private void errorMessageBlank()
     {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all text fields");
         alert.showAndWait();
     }
 
+    // Method to show an erroe message if text entered is not a number
     private void errorMessageInteger()
     {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Member ID must be an integer");
         alert.showAndWait();
     }
     
+    // Method to show an erroe message if the member does not exists
     private void errorMessageNotFound()
     {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Member ID not found");
         alert.showAndWait();
     }
-
 }

@@ -1,7 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+// Programmer: Matt Jones S0201735
+// File: DisplayTotalController.java
+// Date: 17 Sept 2023
+// Purpose: COIT11134 Assignment 2
+
 package assignment2;
 
 import java.net.URL;
@@ -12,27 +13,27 @@ import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
- *
- * @author Matt6
  */
 public class DisplayTotalController implements Initializable
 {
+    // Declare variables for elements in scene
     @FXML
     private Label labelTotal;
     
-    private DataHandler data;
-    private String feeTotal;
+    // Declare initial variables
+    private DataHandler data; //Created to hold object reference to data handler
+    private String feeTotal; //Hold the total registration fee
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        // Get object reference from data handler
         data = App.getDataHandler();
+        // Get the total registration fee from the data handler
         feeTotal = String.format("$%s",Float.toString(data.getTotalFee()));
-        
+        // Set the label element to the total fee
         labelTotal.setText(feeTotal);
     }
-
 }

@@ -36,7 +36,7 @@ public class Student extends Member
         super.setRegisterFee(finalRegisterFee);
     }
 
-    // toString method for Student class
+    // toString method for Student class in format for writing to file
     @Override
     public String toString()
     {

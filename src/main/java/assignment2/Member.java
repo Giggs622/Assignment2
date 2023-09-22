@@ -2,6 +2,7 @@
 // File: Member.java
 // Date: 17 Sept 2023
 // Purpose: COIT11134 Assignment 2
+
 package assignment2;
 
 public class Member
@@ -12,7 +13,7 @@ public class Member
     private String memberName;      // Full name
     private String uniName;         // University
     private String memberEmail;     // Email
-    private String memberPhone;        // Phone Number
+    private String memberPhone;     // Phone Number
     private float registerFee;      // Registration Fee
 
     // Constructor
@@ -92,7 +93,7 @@ public class Member
         this.registerFee = registerFee;
     }
 
-    // toString method for Member class
+    // toString method for Member class in format for writing to file
     @Override
     public String toString()
     {

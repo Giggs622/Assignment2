@@ -2,6 +2,7 @@
 // File: DataHandler.java
 // Date: 17 Sept 2023
 // Purpose: COIT11134 Assignment 2
+
 package assignment2;
 
 import java.io.FileNotFoundException;
@@ -18,9 +19,9 @@ import javafx.scene.control.Alert;
 
 public class DataHandler
 {
-
-    private String fileName;
-    private ArrayList<Member> memberList;
+    // Declare initialised variables
+    private String fileName;                    // String to hold file name
+    private ArrayList<Member> memberList;       // Array List to hold list of members
 
     public DataHandler(String fileName) throws FileNotFoundException
     {
@@ -31,38 +32,43 @@ public class DataHandler
         readDataFile();
     }
 
-    //Private method for reading all saved members from the text file 
-    //and uploading to the memberList ArrayList
-    //Not accessible to the external classes
+    // Method to read file and store in the member ArrayList 
     private void readDataFile() throws FileNotFoundException
     {
         try
         {
+            // Get file path
             Path path = Paths.get(fileName);
+            // Check if file is empty and display error message if it is
             if (Files.size(path) == 0)
             {
                 errorMessage();
             }
             else
             {
-                Scanner fileReader = new Scanner(new FileReader(fileName)); //open file
-                String myEntry = "";  //hold whole line text       
-                int memberID = 0;
-                String memberName = "";
-                String uniName = "";
-                String memberEmail = "";
-                String memberPhone = "";
-                float registerFee = -1;
-                float discount = Values.MEMBER_DISCOUNT;
-                String speechTopic = null;
+                // Initialise variables
+                Scanner fileReader = new Scanner(new FileReader(fileName)); //Open file
+                String myEntry = "";  //Hold whole line text       
+                int memberID = 0;   //Hold member ID number
+                String memberName = ""; //Hold member name
+                String uniName = ""; //Hold uni name
+                String memberEmail = ""; //Hold email
+                String memberPhone = ""; //Hold phone number
+                float registerFee = -1; //Hold registration fee
+                float discount = Values.MEMBER_DISCOUNT; //Hold student discount
+                String speechTopic = null; //Hold speaker topic
 
+                // Keep reading file while there is next line
                 while (fileReader.hasNextLine())
                 {
-                    myEntry = fileReader.nextLine();
-                    StringTokenizer st = new StringTokenizer(myEntry, ",");
+                    // Initialise variables
+                    myEntry = fileReader.nextLine(); //Hold line from file
+                    StringTokenizer st = new StringTokenizer(myEntry, ","); 
 
+                    // Keep reading lines while there are more tokens
                     while (st.hasMoreTokens())
                     {
+                        // Store each element of member record
                         memberID = Integer.parseInt(st.nextToken());
                         memberName = st.nextToken();
                         uniName = st.nextToken();
@@ -82,21 +88,23 @@ public class DataHandler
                     }
                     else if (discount == Values.SPEAKER_DISCOUNT)  // keynote member
                     {
-                        // Create member type
+                        // Create speaker type
                         Speaker speaker = new Speaker(memberID, memberName, uniName, memberEmail, memberPhone, registerFee, speechTopic);
-                        // Add the member to the ArrayList
+                        // Add the speaker to the ArrayList
                         addMember(speaker);
                     }
                     else
                     {
-                        // Create member type
+                        // Create student type
                         Student student = new Student(memberID, memberName, uniName, memberEmail, memberPhone, registerFee, discount);
-                        // Add the member to the ArrayList
+                        // Add the student to the ArrayList
                         addMember(student);
                     }
                 }// end of while loop
-
+                
+                // Retrieve last member record
                 Member lastMember = memberList.get(memberList.size() - 1);
+                // Show message with details of last member recorded
                 lastMemberMessage(lastMember);
                 
                 fileReader.close();//close file
@@ -110,19 +118,19 @@ public class DataHandler
         {
             ex.printStackTrace();
         }
-        catch (IOException ex)
+        catch (IOException ex) //Display error message if file doesn't exist
         {
             errorMessage();
         }
     }//end of the readDataFile method
 
-    //Method for saving all members from the memberList ArrayList to the text file
+    // Method for saving all members from the memberList ArrayList to the text file
     public void saveData()
     {
         try
         {
             Formatter out = new Formatter(fileName);    //open file
-
+            // Write each member in the memberList to the file
             for (Member curMember : memberList)
             {
                 out.format("%s\n", curMember.toString());
@@ -130,15 +138,10 @@ public class DataHandler
 
             out.close();//close file
         }
-        catch (SecurityException ex)
+        catch (SecurityException | FileNotFoundException ex)
         {
-
+            ex.printStackTrace();
         }
-        catch (FileNotFoundException ex)
-        {
-
-        }
-
     }//end of the SaveData method 
 
     // Method for adding a member to the member ArrayList
@@ -147,15 +150,18 @@ public class DataHandler
         memberList.add(m);
     }
 
+    // Method to get the ArrayList memberList
     public ArrayList<Member> getArrayList()
     {
         return memberList;
     }
     
+    // Method to get the total registration fee
     public float getTotalFee()
     {
-        float totalFee = 0.0f;
-        // Get total registration fee
+        // Initialise variables
+        float totalFee = 0.0f; //Hold total fee
+        // Add each members registration fee to total fee
         for (Member curMember : memberList)
         {
             totalFee += curMember.getRegisterFee();
@@ -163,22 +169,21 @@ public class DataHandler
         return totalFee;
     }
     
+    // Method to display an error mesage pop if no members have been stored
     private void errorMessage()
     {
         Alert alert = new Alert(Alert.AlertType.ERROR, "No member records have been stored");
         alert.showAndWait();
     }
     
+    // Method to show an information pop up with last member recorded details
     private void lastMemberMessage(Member m)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, String.format("Last member stored was: %d %s", m.getMemberId(), m.getMemberName()));
         alert.showAndWait();
     }
 
-    //TODO - add more methods here whenever needed. 
-    
-    
-    
+    // Method to search for a member ID in the memberList ArrayList
     public int findMemberRecord(int memberID)
     {
         // Declare variables
